@@ -1104,7 +1104,7 @@ export interface ApiTopicTopic extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     name: Attribute.String;
@@ -1117,7 +1117,6 @@ export interface ApiTopicTopic extends Schema.CollectionType {
     description: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::topic.topic',
       'oneToOne',
