@@ -853,6 +853,12 @@ export interface ApiArticleArticle extends Schema.CollectionType {
     blocks: Attribute.DynamicZone<
       ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
     >;
+    topics: Attribute.Relation<
+      'api::article.article',
+      'manyToMany',
+      'api::topic.topic'
+    >;
+    consumptiontimeminutes: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -979,6 +985,44 @@ export interface ApiGlobalGlobal extends Schema.SingleType {
   };
 }
 
+export interface ApiTopicTopic extends Schema.CollectionType {
+  collectionName: 'topics';
+  info: {
+    singularName: 'topic';
+    pluralName: 'topics';
+    displayName: 'Topics';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    slug: Attribute.UID;
+    articles: Attribute.Relation<
+      'api::topic.topic',
+      'manyToMany',
+      'api::article.article'
+    >;
+    description: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::topic.topic',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::topic.topic',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1002,6 +1046,7 @@ declare module '@strapi/types' {
       'api::author.author': ApiAuthorAuthor;
       'api::category.category': ApiCategoryCategory;
       'api::global.global': ApiGlobalGlobal;
+      'api::topic.topic': ApiTopicTopic;
     }
   }
 }

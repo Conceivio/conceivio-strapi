@@ -53,6 +53,15 @@
         "shared.rich-text",
         "shared.slider"
       ]
+    },
+    "topics": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::topic.topic",
+      "mappedBy": "articles"
+    },
+    "consumptiontimeminutes": {
+      "type": "integer"
     }
   }
 }
