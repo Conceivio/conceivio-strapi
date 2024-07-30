@@ -1115,6 +1115,7 @@ export interface ApiTopicTopic extends Schema.CollectionType {
       'api::article.article'
     >;
     description: Attribute.String;
+    thumbnail: Attribute.Media<'images'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
