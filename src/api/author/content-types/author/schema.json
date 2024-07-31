@@ -36,6 +36,10 @@
     },
     "twitter_handle": {
       "type": "string"
+    },
+    "isprimary": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

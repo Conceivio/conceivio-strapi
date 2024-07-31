@@ -2488,7 +2488,7 @@
     "@strapi/utils" "4.25.5"
     fs-extra "10.0.0"
 
-"@strapi/strapi@4.25.5", "@strapi/strapi@latest":
+"@strapi/strapi@4.25.5", "@strapi/strapi@^4.25.5":
   version "4.25.5"
   resolved "https://registry.yarnpkg.com/@strapi/strapi/-/strapi-4.25.5.tgz#0de3bc689ba5cc2c95009d461412559f35321c08"
   integrity sha512-plevlLQqdXZsaR0phreby4Zjo67846g5vVgWHQWZd9UIgGEDisSHF1FvqP2fGGMBGVqeHY6DGbtjZT52cYeXvg==
