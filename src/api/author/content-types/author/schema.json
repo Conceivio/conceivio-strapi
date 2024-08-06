@@ -40,6 +40,12 @@
     "isprimary": {
       "type": "boolean",
       "default": true
+    },
+    "videos": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::video.video",
+      "mappedBy": "authors"
     }
   }
 }

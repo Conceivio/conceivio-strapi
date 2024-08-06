@@ -1009,6 +1009,11 @@ export interface ApiAuthorAuthor extends Schema.CollectionType {
     >;
     twitter_handle: Attribute.String;
     isprimary: Attribute.Boolean & Attribute.DefaultTo<true>;
+    videos: Attribute.Relation<
+      'api::author.author',
+      'manyToMany',
+      'api::video.video'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1046,6 +1051,11 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       'api::article.article'
     >;
     description: Attribute.Text;
+    videos: Attribute.Relation<
+      'api::category.category',
+      'oneToMany',
+      'api::video.video'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1134,6 +1144,81 @@ export interface ApiTopicTopic extends Schema.CollectionType {
   };
 }
 
+export interface ApiVideoVideo extends Schema.CollectionType {
+  collectionName: 'videos';
+  info: {
+    singularName: 'video';
+    pluralName: 'videos';
+    displayName: 'Video';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    description: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Attribute.UID &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    authors: Attribute.Relation<
+      'api::video.video',
+      'manyToMany',
+      'api::author.author'
+    >;
+    category: Attribute.Relation<
+      'api::video.video',
+      'manyToOne',
+      'api::category.category'
+    >;
+    mux_video_uploader_mux_asset: Attribute.Relation<
+      'api::video.video',
+      'oneToOne',
+      'plugin::mux-video-uploader.mux-asset'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::video.video',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::video.video',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::video.video',
+      'oneToMany',
+      'api::video.video'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1160,6 +1245,7 @@ declare module '@strapi/types' {
       'api::category.category': ApiCategoryCategory;
       'api::global.global': ApiGlobalGlobal;
       'api::topic.topic': ApiTopicTopic;
+      'api::video.video': ApiVideoVideo;
     }
   }
 }
