@@ -5,7 +5,7 @@
     "@strapi/plugin-i18n": "latest",
     "@strapi/plugin-users-permissions": "latest",
     "@strapi/provider-upload-cloudinary": "latest",
-    "@strapi/strapi": "^4.25.5",
+    "@strapi/strapi": "^4.25.6",
     "better-sqlite3": "latest",
     "fs-extra": "^10.0.0",
     "lodash.set": "^4.3.2",
