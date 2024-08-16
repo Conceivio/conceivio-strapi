@@ -1149,11 +1149,6 @@ export interface ApiTagTag extends Schema.CollectionType {
           localized: false;
         };
       }>;
-    article: Attribute.Relation<
-      'api::tag.tag',
-      'manyToOne',
-      'api::article.article'
-    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::tag.tag', 'oneToOne', 'admin::user'> &

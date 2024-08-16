@@ -60,8 +60,7 @@
     "tags": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::tag.tag",
-      "mappedBy": "article"
+      "target": "api::tag.tag"
     }
   }
 }
