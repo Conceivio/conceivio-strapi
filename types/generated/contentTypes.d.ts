@@ -1220,6 +1220,7 @@ export interface ApiVideoVideo extends Schema.CollectionType {
       'oneToOne',
       'plugin::mux-video-uploader.mux-asset'
     >;
+    tags: Attribute.Relation<'api::video.video', 'oneToMany', 'api::tag.tag'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

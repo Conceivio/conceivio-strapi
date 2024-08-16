@@ -57,6 +57,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::mux-video-uploader.mux-asset"
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tag.tag"
     }
   }
 }
