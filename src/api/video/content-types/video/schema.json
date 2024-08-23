@@ -47,12 +47,6 @@
       "target": "api::author.author",
       "inversedBy": "videos"
     },
-    "category": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::category.category",
-      "inversedBy": "videos"
-    },
     "mux_video_uploader_mux_asset": {
       "type": "relation",
       "relation": "oneToOne",

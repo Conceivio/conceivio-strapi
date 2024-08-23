@@ -955,11 +955,6 @@ export interface ApiArticleArticle extends Schema.CollectionType {
       'manyToOne',
       'api::author.author'
     >;
-    category: Attribute.Relation<
-      'api::article.article',
-      'manyToOne',
-      'api::category.category'
-    >;
     blocks: Attribute.DynamicZone<
       ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
     >;
@@ -968,6 +963,11 @@ export interface ApiArticleArticle extends Schema.CollectionType {
       'api::article.article',
       'oneToMany',
       'api::tag.tag'
+    >;
+    phases: Attribute.Relation<
+      'api::article.article',
+      'oneToMany',
+      'api::phase.phase'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1031,41 +1031,31 @@ export interface ApiAuthorAuthor extends Schema.CollectionType {
   };
 }
 
-export interface ApiCategoryCategory extends Schema.CollectionType {
-  collectionName: 'categories';
+export interface ApiFormatFormat extends Schema.CollectionType {
+  collectionName: 'formats';
   info: {
-    singularName: 'category';
-    pluralName: 'categories';
-    displayName: 'Category';
-    description: 'Organize your content into categories';
+    singularName: 'format';
+    pluralName: 'formats';
+    displayName: 'Format';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
     name: Attribute.String;
     slug: Attribute.UID;
-    articles: Attribute.Relation<
-      'api::category.category',
-      'oneToMany',
-      'api::article.article'
-    >;
-    description: Attribute.Text;
-    videos: Attribute.Relation<
-      'api::category.category',
-      'oneToMany',
-      'api::video.video'
-    >;
+    description: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::category.category',
+      'api::format.format',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::category.category',
+      'api::format.format',
       'oneToOne',
       'admin::user'
     > &
@@ -1103,6 +1093,65 @@ export interface ApiGlobalGlobal extends Schema.SingleType {
       'admin::user'
     > &
       Attribute.Private;
+  };
+}
+
+export interface ApiPhasePhase extends Schema.CollectionType {
+  collectionName: 'phases';
+  info: {
+    singularName: 'phase';
+    pluralName: 'phases';
+    displayName: 'Phase';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    description: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Attribute.UID &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::phase.phase',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::phase.phase',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::phase.phase',
+      'oneToMany',
+      'api::phase.phase'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -1205,11 +1254,6 @@ export interface ApiVideoVideo extends Schema.CollectionType {
       'manyToMany',
       'api::author.author'
     >;
-    category: Attribute.Relation<
-      'api::video.video',
-      'manyToOne',
-      'api::category.category'
-    >;
     mux_video_uploader_mux_asset: Attribute.Relation<
       'api::video.video',
       'oneToOne',
@@ -1263,8 +1307,9 @@ declare module '@strapi/types' {
       'api::about.about': ApiAboutAbout;
       'api::article.article': ApiArticleArticle;
       'api::author.author': ApiAuthorAuthor;
-      'api::category.category': ApiCategoryCategory;
+      'api::format.format': ApiFormatFormat;
       'api::global.global': ApiGlobalGlobal;
+      'api::phase.phase': ApiPhasePhase;
       'api::tag.tag': ApiTagTag;
       'api::video.video': ApiVideoVideo;
     }
