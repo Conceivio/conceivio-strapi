@@ -1,0 +1,44 @@
+name: DeployStrapiStage
+
+on:
+  push:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: azure/docker-login@v2
+        with:
+          login-server: crconceiviostage.azurecr.io
+          username: ${{ vars.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build app
+        run: |
+          docker build -f .github/workflows/Dockerfile-stage . -t crconceiviostage.azurecr.io/conceivio-stage/strapi:${{ github.sha }} -t crconceiviostage.azurecr.io/conceivio-stage/strapi:latest
+          docker push crconceiviostage.azurecr.io/conceivio-stage/strapi --all-tags
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Azure CLI script
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az webapp config container set --resource-group rg-conceivio-stage --name conceivio-stage-strapi -i crconceiviostage.azurecr.io/conceivio-stage/strapi:latest
+            az webapp restart --resource-group rg-conceivio-stage --name conceivio-stage-strapi
