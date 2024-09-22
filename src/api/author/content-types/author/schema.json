@@ -28,24 +28,12 @@
     "email": {
       "type": "string"
     },
-    "articles": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::article.article",
-      "mappedBy": "author"
-    },
     "twitter_handle": {
       "type": "string"
     },
     "isprimary": {
       "type": "boolean",
       "default": true
-    },
-    "videos": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::video.video",
-      "mappedBy": "authors"
     }
   }
 }
