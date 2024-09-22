@@ -4,6 +4,7 @@
     "@strapi/plugin-graphql": "latest",
     "@strapi/plugin-i18n": "latest",
     "@strapi/plugin-users-permissions": "latest",
+    "@strapi/provider-email-sendgrid": "^5.0.0",
     "@strapi/provider-upload-cloudinary": "latest",
     "@strapi/strapi": "^4.25.6",
     "better-sqlite3": "latest",

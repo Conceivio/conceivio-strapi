@@ -1125,7 +1125,7 @@ export interface ApiPhasePhase extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    slug: Attribute.UID &
+    slug: Attribute.UID<'api::phase.phase', 'name'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1155,12 +1155,137 @@ export interface ApiPhasePhase extends Schema.CollectionType {
   };
 }
 
+export interface ApiResourceResource extends Schema.CollectionType {
+  collectionName: 'resources';
+  info: {
+    singularName: 'resource';
+    pluralName: 'resources';
+    displayName: 'Resource';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    Title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Slug: Attribute.UID<'api::resource.resource', 'Title'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Description: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Phases: Attribute.Relation<
+      'api::resource.resource',
+      'oneToMany',
+      'api::phase.phase'
+    >;
+    Chip: Attribute.Enumeration<['Article', 'Video', 'Exercise', 'Webinar']> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Tags: Attribute.Relation<
+      'api::resource.resource',
+      'oneToMany',
+      'api::tag.tag'
+    >;
+    Author: Attribute.Relation<
+      'api::resource.resource',
+      'oneToOne',
+      'api::author.author'
+    >;
+    Thumbnail: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Blocks: Attribute.DynamicZone<
+      ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    ConsumptionTimeMinutes: Attribute.Integer &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    mux_video_uploader_mux_asset: Attribute.Relation<
+      'api::resource.resource',
+      'oneToOne',
+      'plugin::mux-video-uploader.mux-asset'
+    >;
+    PublishedDate: Attribute.Date &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    SEO: Attribute.Component<'shared.seo', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    ViewCount: Attribute.Integer &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::resource.resource',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::resource.resource',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::resource.resource',
+      'oneToMany',
+      'api::resource.resource'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiTagTag extends Schema.CollectionType {
   collectionName: 'tags';
   info: {
     singularName: 'tag';
     pluralName: 'tags';
     displayName: 'Tags';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -1171,7 +1296,7 @@ export interface ApiTagTag extends Schema.CollectionType {
     };
   };
   attributes: {
-    name: Attribute.String &
+    Name: Attribute.String &
       Attribute.Required &
       Attribute.Unique &
       Attribute.SetPluginOptions<{
@@ -1179,7 +1304,7 @@ export interface ApiTagTag extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    slug: Attribute.UID<'api::tag.tag', 'name'> &
+    slug: Attribute.UID &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1310,6 +1435,7 @@ declare module '@strapi/types' {
       'api::format.format': ApiFormatFormat;
       'api::global.global': ApiGlobalGlobal;
       'api::phase.phase': ApiPhasePhase;
+      'api::resource.resource': ApiResourceResource;
       'api::tag.tag': ApiTagTag;
       'api::video.video': ApiVideoVideo;
     }

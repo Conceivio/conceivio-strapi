@@ -4,7 +4,8 @@
   "info": {
     "singularName": "tag",
     "pluralName": "tags",
-    "displayName": "Tags"
+    "displayName": "Tags",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -15,7 +16,7 @@
     }
   },
   "attributes": {
-    "name": {
+    "Name": {
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -31,8 +32,7 @@
           "localized": true
         }
       },
-      "type": "uid",
-      "targetField": "name"
+      "type": "uid"
     },
     "is_topic": {
       "pluginOptions": {
@@ -44,14 +44,15 @@
       "default": false
     },
     "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
       ],
-      "type": "media",
-      "multiple": false,
       "pluginOptions": {
         "i18n": {
           "localized": false

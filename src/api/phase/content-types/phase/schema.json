@@ -38,7 +38,8 @@
           "localized": true
         }
       },
-      "type": "uid"
+      "type": "uid",
+      "targetField": "name"
     }
   }
 }
