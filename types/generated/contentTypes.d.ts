@@ -1130,7 +1130,9 @@ export interface ApiResourceResource extends Schema.CollectionType {
       'oneToMany',
       'api::phase.phase'
     >;
-    Chip: Attribute.Enumeration<['Article', 'Video', 'Exercise', 'Webinar']> &
+    ResourceType: Attribute.Enumeration<
+      ['Article', 'Video', 'Exercise', 'Webinar']
+    > &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

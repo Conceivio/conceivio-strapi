@@ -48,7 +48,7 @@
       "relation": "oneToMany",
       "target": "api::phase.phase"
     },
-    "Chip": {
+    "ResourceType": {
       "pluginOptions": {
         "i18n": {
           "localized": true
