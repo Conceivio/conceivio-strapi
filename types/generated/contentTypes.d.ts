@@ -1133,6 +1133,7 @@ export interface ApiResourceResource extends Schema.CollectionType {
     ResourceType: Attribute.Enumeration<
       ['Article', 'Video', 'Exercise', 'Webinar']
     > &
+      Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

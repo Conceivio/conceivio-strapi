@@ -60,7 +60,8 @@
         "Video",
         "Exercise",
         "Webinar"
-      ]
+      ],
+      "required": true
     },
     "Tags": {
       "type": "relation",
