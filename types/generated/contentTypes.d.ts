@@ -1112,6 +1112,10 @@ export interface ApiResourceResource extends Schema.CollectionType {
         i18n: {
           localized: true;
         };
+      }> &
+      Attribute.SetMinMaxLength<{
+        minLength: 3;
+        maxLength: 70;
       }>;
     Slug: Attribute.UID<'api::resource.resource', 'Title'> &
       Attribute.SetPluginOptions<{

@@ -24,7 +24,9 @@
       },
       "type": "string",
       "required": true,
-      "unique": false
+      "unique": false,
+      "maxLength": 70,
+      "minLength": 3
     },
     "Slug": {
       "pluginOptions": {
