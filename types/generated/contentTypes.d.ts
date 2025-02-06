@@ -948,6 +948,14 @@ export interface ApiAuthorAuthor extends Schema.CollectionType {
     email: Attribute.String;
     twitter_handle: Attribute.String;
     isprimary: Attribute.Boolean & Attribute.DefaultTo<true>;
+    full_name: Attribute.String;
+    languages: Attribute.Relation<
+      'api::author.author',
+      'manyToMany',
+      'api::language.language'
+    >;
+    bio: Attribute.Text;
+    appointment_type: Attribute.Enumeration<['in_person', 'virtual', 'both']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1023,6 +1031,41 @@ export interface ApiGlobalGlobal extends Schema.SingleType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::global.global',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiLanguageLanguage extends Schema.CollectionType {
+  collectionName: 'languages';
+  info: {
+    singularName: 'language';
+    pluralName: 'languages';
+    displayName: 'Language';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    ISO: Attribute.String;
+    authors: Attribute.Relation<
+      'api::language.language',
+      'manyToMany',
+      'api::author.author'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::language.language',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::language.language',
       'oneToOne',
       'admin::user'
     > &
@@ -1303,6 +1346,7 @@ declare module '@strapi/types' {
       'api::author.author': ApiAuthorAuthor;
       'api::format.format': ApiFormatFormat;
       'api::global.global': ApiGlobalGlobal;
+      'api::language.language': ApiLanguageLanguage;
       'api::phase.phase': ApiPhasePhase;
       'api::resource.resource': ApiResourceResource;
       'api::tag.tag': ApiTagTag;

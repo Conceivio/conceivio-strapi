@@ -34,6 +34,26 @@
     "isprimary": {
       "type": "boolean",
       "default": true
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "languages": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::language.language",
+      "inversedBy": "authors"
+    },
+    "bio": {
+      "type": "text"
+    },
+    "appointment_type": {
+      "type": "enumeration",
+      "enum": [
+        "in_person",
+        "virtual",
+        "both"
+      ]
     }
   }
 }
