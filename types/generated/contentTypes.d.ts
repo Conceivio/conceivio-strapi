@@ -948,6 +948,37 @@ export interface ApiAuthorAuthor extends Schema.CollectionType {
     email: Attribute.String;
     twitter_handle: Attribute.String;
     isprimary: Attribute.Boolean & Attribute.DefaultTo<true>;
+    full_name: Attribute.String;
+    languages: Attribute.Relation<
+      'api::author.author',
+      'manyToMany',
+      'api::language.language'
+    >;
+    bio: Attribute.Text;
+    appointment_type: Attribute.Enumeration<['in_person', 'virtual', 'both']>;
+    isServiceProvider: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<false>;
+    specializations: Attribute.Relation<
+      'api::author.author',
+      'manyToMany',
+      'api::specialization.specialization'
+    >;
+    specialist_locations: Attribute.Relation<
+      'api::author.author',
+      'manyToMany',
+      'api::specialist-location.specialist-location'
+    >;
+    specialist_type: Attribute.Relation<
+      'api::author.author',
+      'oneToOne',
+      'api::specialist-type.specialist-type'
+    >;
+    mux_video_uploader_mux_asset: Attribute.Relation<
+      'api::author.author',
+      'oneToOne',
+      'plugin::mux-video-uploader.mux-asset'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1023,6 +1054,41 @@ export interface ApiGlobalGlobal extends Schema.SingleType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::global.global',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiLanguageLanguage extends Schema.CollectionType {
+  collectionName: 'languages';
+  info: {
+    singularName: 'language';
+    pluralName: 'languages';
+    displayName: 'Language';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    ISO: Attribute.String;
+    authors: Attribute.Relation<
+      'api::language.language',
+      'manyToMany',
+      'api::author.author'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::language.language',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::language.language',
       'oneToOne',
       'admin::user'
     > &
@@ -1220,6 +1286,211 @@ export interface ApiResourceResource extends Schema.CollectionType {
   };
 }
 
+export interface ApiSpecialistLocationSpecialistLocation
+  extends Schema.CollectionType {
+  collectionName: 'specialist_locations';
+  info: {
+    singularName: 'specialist-location';
+    pluralName: 'specialist-locations';
+    displayName: 'Specialist Location';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    City: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Country: Attribute.String &
+      Attribute.Required &
+      Attribute.CustomField<'plugin::country-select.country'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    isPrimary: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Attribute.DefaultTo<true>;
+    authors: Attribute.Relation<
+      'api::specialist-location.specialist-location',
+      'manyToMany',
+      'api::author.author'
+    >;
+    Timezone: Attribute.String &
+      Attribute.CustomField<'plugin::timezone-select.timezone'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::specialist-location.specialist-location',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::specialist-location.specialist-location',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::specialist-location.specialist-location',
+      'oneToMany',
+      'api::specialist-location.specialist-location'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiSpecialistTypeSpecialistType extends Schema.CollectionType {
+  collectionName: 'specialist_types';
+  info: {
+    singularName: 'specialist-type';
+    pluralName: 'specialist-types';
+    displayName: 'Specialist Type';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    Name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Attribute.UID<'api::specialist-type.specialist-type', 'Name'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Description: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::specialist-type.specialist-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::specialist-type.specialist-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::specialist-type.specialist-type',
+      'oneToMany',
+      'api::specialist-type.specialist-type'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiSpecializationSpecialization extends Schema.CollectionType {
+  collectionName: 'specializations';
+  info: {
+    singularName: 'specialization';
+    pluralName: 'specializations';
+    displayName: 'Specialization';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    Name: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Slug: Attribute.UID<'api::specialization.specialization', 'Name'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Description: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    authors: Attribute.Relation<
+      'api::specialization.specialization',
+      'manyToMany',
+      'api::author.author'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::specialization.specialization',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::specialization.specialization',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::specialization.specialization',
+      'oneToMany',
+      'api::specialization.specialization'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiTagTag extends Schema.CollectionType {
   collectionName: 'tags';
   info: {
@@ -1303,8 +1574,12 @@ declare module '@strapi/types' {
       'api::author.author': ApiAuthorAuthor;
       'api::format.format': ApiFormatFormat;
       'api::global.global': ApiGlobalGlobal;
+      'api::language.language': ApiLanguageLanguage;
       'api::phase.phase': ApiPhasePhase;
       'api::resource.resource': ApiResourceResource;
+      'api::specialist-location.specialist-location': ApiSpecialistLocationSpecialistLocation;
+      'api::specialist-type.specialist-type': ApiSpecialistTypeSpecialistType;
+      'api::specialization.specialization': ApiSpecializationSpecialization;
       'api::tag.tag': ApiTagTag;
     }
   }

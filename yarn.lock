@@ -2222,7 +2222,7 @@
     "@strapi/utils" "4.25.13"
     fs-extra "10.0.0"
 
-"@strapi/strapi@^4.0.0", "@strapi/strapi@^4.15.1", "@strapi/strapi@^4.20.2", "@strapi/strapi@^4.3.4", "@strapi/strapi@^4.4.0", "@strapi/strapi@4.25.13":
+"@strapi/strapi@^4.0.0", "@strapi/strapi@^4.15.1", "@strapi/strapi@^4.20.2", "@strapi/strapi@^4.3.4", "@strapi/strapi@^4.4.0", "@strapi/strapi@^4.7.1", "@strapi/strapi@4.25.13":
   version "4.25.13"
   resolved "https://registry.npmjs.org/@strapi/strapi/-/strapi-4.25.13.tgz"
   integrity sha512-XCh/imAVJ9Dm5xKoAonWf5yJgcxv6BicW3gm12aH+fnZsMJtQJCEoJpiRSsN+6tg0ziZvQaFk0B/yGxpDTIEEA==
@@ -3820,9 +3820,9 @@ camelize@^1.0.0:
   integrity sha512-dU+Tx2fsypxTgtLoE36npi3UqcjSSMNYfkqgmoEhtZrraP5VWq0K7FkWVTYa8eMPtnU/G2txVsfdCJTn9uzpuQ==
 
 caniuse-lite@^1.0.30001640:
-  version "1.0.30001643"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001643.tgz"
-  integrity sha512-ERgWGNleEilSrHM6iUz/zJNSQTP8Mr21wDWpdgvRwcTXGAq6jMtOUPP4dqFPTdKqZ2wKTdtB+uucZ3MRpAUSmg==
+  version "1.0.30001699"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001699.tgz"
+  integrity sha512-b+uH5BakXZ9Do9iK+CkDmctUSEqZl+SP056vc5usa0PL+ev5OHw003rZXcnjNDv3L8P5j6rwT6C0BPKSikW08w==
 
 castable-video@~1.0.9:
   version "1.0.10"
@@ -4774,6 +4774,11 @@ detect-node@^2.0.4, detect-node@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/detect-node/-/detect-node-2.1.0.tgz"
   integrity sha512-T0NIuQpnTvFDATNuHN5roPwSBG83rFsuO+MXXH9/3N1eFbn4wcPjttvjMLEPWJ0RGUYgQE7cGgS3tNxbqCGM7g==
+
+diacritics@1.3.0:
+  version "1.3.0"
+  resolved "https://registry.npmjs.org/diacritics/-/diacritics-1.3.0.tgz"
+  integrity sha512-wlwEkqcsaxvPJML+rDh/2iS824jbREk6DUMUKkEaSlxdYHeS43cClJtsWglvw2RfeXGm6ohKDqsXteJ5sP5enA==
 
 dicer@0.3.0:
   version "0.3.0"
@@ -6269,6 +6274,13 @@ humanize-ms@^1.2.1:
   integrity sha512-Fl70vYtsAFb/C06PTS9dZBo7ihau+Tu/DNCk/OyHhea07S+aeMWpFFkUaXRa8fI+ScZbEI8dfSxwY7gxZ9SAVQ==
   dependencies:
     ms "^2.0.0"
+
+i18n-iso-countries@^7.5.0:
+  version "7.13.0"
+  resolved "https://registry.npmjs.org/i18n-iso-countries/-/i18n-iso-countries-7.13.0.tgz"
+  integrity sha512-pVh4CjdgAHZswI98hzG+1BItQlsQfR+yGDsjDISoWIV/jHDAvCmSyZ5vj2YWwAjfVZ8/BhBDqWcFvuGOyHe4vg==
+  dependencies:
+    diacritics "1.3.0"
 
 iconv-lite@^0.4.24, iconv-lite@0.4.24:
   version "0.4.24"
@@ -10200,7 +10212,14 @@ statuses@2.0.1:
   resolved "https://registry.npmjs.org/statuses/-/statuses-2.0.1.tgz"
   integrity sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==
 
-strapi-plugin-mux-video-uploader@latest:
+strapi-plugin-country-select@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/strapi-plugin-country-select/-/strapi-plugin-country-select-1.0.3.tgz"
+  integrity sha512-Pim8zf4cz59p9gKMLZr1KPiXExLjnyfd4m3D4x9B9iV+GHpErPIbwcDuk+5qLHOyIezjv+WJj6LolzQhsu9JNg==
+  dependencies:
+    i18n-iso-countries "^7.5.0"
+
+strapi-plugin-mux-video-uploader@2.8.4:
   version "2.8.4"
   resolved "https://registry.npmjs.org/strapi-plugin-mux-video-uploader/-/strapi-plugin-mux-video-uploader-2.8.4.tgz"
   integrity sha512-AwaTMYJerYrCv2Z0wlUByEgMB9F2zQoJ6OosBAUKpWNLDY5zM8oHq36XAXy5hTodGU2m5QOzDKwuuKUgZCuxdw==
@@ -10223,6 +10242,11 @@ strapi-plugin-mux-video-uploader@latest:
     react-router-dom "^5.3.4"
     styled-components "^5.3.3"
     zod "^3.22.4"
+
+strapi-plugin-timezone-select@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/strapi-plugin-timezone-select/-/strapi-plugin-timezone-select-1.0.0.tgz"
+  integrity sha512-qCMkuP7LJju92t9STAX6ffFiz5OZyPyoixSDb9Xr41fcmCgd5yIYw0LZwef6fiIQuUK54Ht34XBI4DLs1hv24A==
 
 stream-chain@^2.2.5, stream-chain@2.2.5:
   version "2.2.5"

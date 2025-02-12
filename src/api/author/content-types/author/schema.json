@@ -34,6 +34,53 @@
     "isprimary": {
       "type": "boolean",
       "default": true
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "languages": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::language.language",
+      "inversedBy": "authors"
+    },
+    "bio": {
+      "type": "text"
+    },
+    "appointment_type": {
+      "type": "enumeration",
+      "enum": [
+        "in_person",
+        "virtual",
+        "both"
+      ]
+    },
+    "isServiceProvider": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "specializations": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::specialization.specialization",
+      "inversedBy": "authors"
+    },
+    "specialist_locations": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::specialist-location.specialist-location",
+      "inversedBy": "authors"
+    },
+    "specialist_type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::specialist-type.specialist-type"
+    },
+    "mux_video_uploader_mux_asset": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::mux-video-uploader.mux-asset"
     }
   }
 }
