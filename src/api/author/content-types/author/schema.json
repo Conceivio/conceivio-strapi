@@ -72,10 +72,11 @@
       "target": "api::specialist-location.specialist-location",
       "inversedBy": "authors"
     },
-    "specialist_type": {
+    "specialist_types": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::specialist-type.specialist-type"
+      "relation": "manyToMany",
+      "target": "api::specialist-type.specialist-type",
+      "mappedBy": "authors"
     },
     "mux_video_uploader_mux_asset": {
       "type": "relation",

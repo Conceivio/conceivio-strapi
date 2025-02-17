@@ -40,6 +40,12 @@
         }
       },
       "type": "text"
+    },
+    "authors": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::author.author",
+      "inversedBy": "specialist_types"
     }
   }
 }
