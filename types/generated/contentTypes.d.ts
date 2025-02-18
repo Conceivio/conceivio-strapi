@@ -969,9 +969,9 @@ export interface ApiAuthorAuthor extends Schema.CollectionType {
       'manyToMany',
       'api::specialist-location.specialist-location'
     >;
-    specialist_type: Attribute.Relation<
+    specialist_types: Attribute.Relation<
       'api::author.author',
-      'oneToOne',
+      'manyToMany',
       'api::specialist-type.specialist-type'
     >;
     mux_video_uploader_mux_asset: Attribute.Relation<
@@ -1396,6 +1396,11 @@ export interface ApiSpecialistTypeSpecialistType extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    authors: Attribute.Relation<
+      'api::specialist-type.specialist-type',
+      'manyToMany',
+      'api::author.author'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
