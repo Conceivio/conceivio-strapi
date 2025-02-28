@@ -1096,6 +1096,48 @@ export interface ApiLanguageLanguage extends Schema.CollectionType {
   };
 }
 
+export interface ApiOfferingOffering extends Schema.CollectionType {
+  collectionName: 'offerings';
+  info: {
+    singularName: 'offering';
+    pluralName: 'offerings';
+    displayName: 'Offering';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.Text;
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    price_amount: Attribute.Integer;
+    price_currency: Attribute.Enumeration<['EUR', 'USD', 'DKK']>;
+    slug: Attribute.UID<'api::offering.offering', 'name'>;
+    highlighted: Attribute.Boolean;
+    author: Attribute.Relation<
+      'api::offering.offering',
+      'oneToOne',
+      'api::author.author'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::offering.offering',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::offering.offering',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPhasePhase extends Schema.CollectionType {
   collectionName: 'phases';
   info: {
@@ -1580,6 +1622,7 @@ declare module '@strapi/types' {
       'api::format.format': ApiFormatFormat;
       'api::global.global': ApiGlobalGlobal;
       'api::language.language': ApiLanguageLanguage;
+      'api::offering.offering': ApiOfferingOffering;
       'api::phase.phase': ApiPhasePhase;
       'api::resource.resource': ApiResourceResource;
       'api::specialist-location.specialist-location': ApiSpecialistLocationSpecialistLocation;
